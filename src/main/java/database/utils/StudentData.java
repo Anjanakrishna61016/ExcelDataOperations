@@ -43,7 +43,7 @@ public class StudentData {
         return physics;
     }
 
-    public void setPhysics( int physics) {
+    public void setPhysics( double physics) {
         this.physics = physics;
     }
 
@@ -51,7 +51,7 @@ public class StudentData {
         return chemistry;
     }
 
-    public void setChemistry( int chemistry) {
+    public void setChemistry( double  chemistry) {
         this.chemistry = chemistry;
     }
 
@@ -59,7 +59,7 @@ public class StudentData {
         return maths;
     }
 
-    public void setMaths( int maths) {
+    public void setMaths(double maths) {
         this.maths = maths;
     }
 }
