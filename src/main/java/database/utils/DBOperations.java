@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
+
+
 public class DBOperations {
 
 
@@ -20,11 +23,11 @@ public class DBOperations {
 		Scanner sc=new Scanner(System.in);
 		boolean found= false;
 
+
 		List<StudentData> result = new ArrayList<>();
 
 		String SQL_SELECT = "Select * from Myworkbook2";
 
-		// auto close connection and preparedStatement
 		try (Connection conn = DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/world", "root", "abc123");
 				PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT)) {
@@ -46,12 +49,10 @@ public class DBOperations {
 				obj.setChemistry(chemistry);
 				obj.setMaths(maths);
 
-
-
 				result.add(obj);
 
 			}
-			result.forEach(x -> System.out.println(x));
+
 
 			do {
 				System.out.println("1.Display  Table Data ");
@@ -62,33 +63,52 @@ public class DBOperations {
 				switch(choice)
 				{
 				case 1: 
+
 					for(StudentData st: result) 
-					{
 						System.out.println("Admission Number:"+st.getAdmission_no()+"\r\n"+" Name:"+st.getName()+"\r\n"+"Physics :"+st.getPhysics()+"\r\n"+"Chemistry :"+st.getChemistry()+"\r\n"+"Maths :"+st.getMaths()+"\r\n");
-					}
+
+					break;
 				case 2:
+
 					System.out.println("Enter Admission number to Search:");
 					int adm = sc.nextInt();
 					it=result.listIterator();
-					
+
 					while(it.hasNext())
 					{
 						StudentData s = (StudentData)it.next();
-						
+
 						if (s.getAdmission_no()==adm)
 						{
-							System.out.println("Admission Number:"+s.getAdmission_no()+"\r\n"+" Name:"+s.getName()+"\r\n"+"Physics :"+s.getPhysics()+"\r\n"+"Chemistry :"+s.getChemistry()+"\r\n"+"Maths :"+s.getMaths()+"\r\n");
+							double  Admission_no =s.getAdmission_no();
+							String name = s.getName();
+							double physics = s.getPhysics();
+							double chemistry = s.getChemistry();
+							double maths = s.getMaths();
+
+							s.setAdmission_no(Admission_no);
+							s.setName(name);
+							s.setPhysics(physics);
+							s.setChemistry(chemistry);
+							s.setMaths(maths);
+
+							String json = new Gson().toJson(s);   
+							System.out.println(json);
+							found=true;
+
+
+
 							found=true;
 						}
 					}
-					
+
 					if(!found) 
 					{
 						System.out.println("Record Not Found");
 					}
-				
 
-				break;
+
+					break;
 
 				case 3:
 
@@ -97,18 +117,10 @@ public class DBOperations {
 
 					PreparedStatement p = null;
 					ResultSet rs = null;
-
-
-
-					String sql
-					= "select * from myworkbook2 where name ='" +input+ "' " ;
-
+					String sql = "select * from myworkbook2 where name ='" +input+ "' " ;
 
 					p = conn.prepareStatement(sql);
 					rs = p.executeQuery();
-
-
-					System.out.println( "Admission_no\t\tname\t\tphysics\t\tchemistry\t\tmaths");
 
 					while (rs.next()) {
 
@@ -118,28 +130,28 @@ public class DBOperations {
 						double chemistry = rs.getDouble("chemistry");
 						double maths = rs.getDouble("maths");
 
+						StudentData obj = new StudentData();
+						obj.setAdmission_no(Admission_no);
+						obj.setName(name);
+						obj.setPhysics(physics);
+						obj.setChemistry(chemistry);
+						obj.setMaths(maths);
 
-						System.out.println(Admission_no+ "\t\t" + name
-								+ "\t\t" + physics + "\t\t"
-								+ chemistry + "\t\t"+ maths);
+
+						String json = new Gson().toJson(obj);   
+						System.out.println(json);
+						found=true;
 					}
 
-				
+				}
 				if(!found)
 					System.out.println("Record Not Found");
-				}
 
 			}while(choice!=0);
-			
-		}
-		catch (SQLException e)
+
+		}		catch (SQLException e)
 		{
 			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
 		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
 	}
 }
