@@ -1,14 +1,12 @@
 package database.utils;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 
-public class findingText {
+public class DBOperations {
 
 
 
@@ -68,58 +66,78 @@ public class findingText {
 					{
 						System.out.println("Admission Number:"+st.getAdmission_no()+"\r\n"+" Name:"+st.getName()+"\r\n"+"Physics :"+st.getPhysics()+"\r\n"+"Chemistry :"+st.getChemistry()+"\r\n"+"Maths :"+st.getMaths()+"\r\n");
 					}
-				case 2:{
+				case 2:
 					System.out.println("Enter Admission number to Search:");
 					int adm = sc.nextInt();
-
 					it=result.listIterator();
+					
 					while(it.hasNext())
 					{
 						StudentData s = (StudentData)it.next();
+						
 						if (s.getAdmission_no()==adm)
 						{
 							System.out.println("Admission Number:"+s.getAdmission_no()+"\r\n"+" Name:"+s.getName()+"\r\n"+"Physics :"+s.getPhysics()+"\r\n"+"Chemistry :"+s.getChemistry()+"\r\n"+"Maths :"+s.getMaths()+"\r\n");
 							found=true;
 						}
 					}
+					
 					if(!found) 
 					{
 						System.out.println("Record Not Found");
 					}
-				}
+				
 
-					break;
+				break;
 
-				case 3:{
+				case 3:
 
 					System.out.println("Enter Name to Search:");
-					String name = sc.next();
+					String input = sc.next();
 
-					it=result.listIterator();
-					while(it.hasNext())
-					{
-						StudentData s = (StudentData)it.next();
+					PreparedStatement p = null;
+					ResultSet rs = null;
 
-						if (s.getName()==name)
-						{
-							System.out.println("Admission Number:"+s.getAdmission_no()+"\r\n"+" Name:"+s.getName()+"\r\n"+"Physics :"+s.getPhysics()+"\r\n"+"Chemistry :"+s.getChemistry()+"\r\n"+"Maths :"+s.getMaths()+"\r\n");
-							found=true;
-						}
 
+
+					String sql
+					= "select * from myworkbook2 where name ='" +input+ "' " ;
+
+
+					p = conn.prepareStatement(sql);
+					rs = p.executeQuery();
+
+
+					System.out.println( "Admission_no\t\tname\t\tphysics\t\tchemistry\t\tmaths");
+
+					while (rs.next()) {
+
+						double Admission_no = rs.getDouble("Admission_no");
+						String name = rs.getString("Name");
+						double physics = rs.getDouble("physics");
+						double chemistry = rs.getDouble("chemistry");
+						double maths = rs.getDouble("maths");
+
+
+						System.out.println(Admission_no+ "\t\t" + name
+								+ "\t\t" + physics + "\t\t"
+								+ chemistry + "\t\t"+ maths);
 					}
-					if(!found)
-						System.out.println("Record Not Found");
-				}
+
+				
+				if(!found)
+					System.out.println("Record Not Found");
 				}
 
 			}while(choice!=0);
-
-
-
-
-		} catch (SQLException e) {
+			
+		}
+		catch (SQLException e)
+		{
 			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 
