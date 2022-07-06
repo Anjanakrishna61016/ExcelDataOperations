@@ -25,7 +25,7 @@ public class ExcelDataToJSON {
 	 
 
 	    public JsonNode excelToJson(File excel) throws IOException {
-	        // hold the excel data sheet wise
+	        
 	        ObjectNode excelData = mapper.createObjectNode();
 	        FileInputStream fis = null;
 	        Workbook workbook = null;
@@ -35,30 +35,29 @@ public class ExcelDataToJSON {
 	 
 	            String filename = excel.getName().toLowerCase();
 	            if (filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
-	                // creating workbook object based on excel file format
+	               
 	                if (filename.endsWith(".xls")) {
 	                    workbook = new HSSFWorkbook(fis);
 	                } else {
 	                    workbook = new XSSFWorkbook(fis);
 	                }
 	 
-	                // Reading each sheet one by one
+	               
 	                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 	                    Sheet sheet = workbook.getSheetAt(i);
 	                    String sheetName = sheet.getSheetName();
 	 
 	                    List<String> headers = new ArrayList<String>();
 	                    ArrayNode sheetData = mapper.createArrayNode();
-	                    // Reading each row of the sheet
+	                    
 	                    for (int j = 0; j <= sheet.getLastRowNum(); j++) {
 	                        Row row = sheet.getRow(j);
 	                        if (j == 0) {
-	                            // reading sheet header's name
+	                            
 	                            for (int k = 0; k < row.getLastCellNum(); k++) {
 	                                headers.add(row.getCell(k).getStringCellValue());
 	                            }
 	                        } else {
-	                            // reading work sheet data
 	                            ObjectNode rowData = mapper.createObjectNode();
 	                            for (int k = 0; k < headers.size(); k++) {
 	                                Cell cell = row.getCell(k);

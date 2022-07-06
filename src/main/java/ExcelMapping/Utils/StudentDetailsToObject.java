@@ -231,7 +231,7 @@ public class StudentDetailsToObject {
 					choice=sc.nextInt();
 					switch(choice)
 					{
-					
+
 					case 1:	
 						for(StudentExcelSheetDetails st: studentList) 
 						{
@@ -239,6 +239,7 @@ public class StudentDetailsToObject {
 							System.out.println("Total: " +Total);
 							System.out.println("Percentage: " +perc);
 						}
+						break;
 
 					case 2:
 						System.out.println("Enter Admission number to Search:");
@@ -250,7 +251,7 @@ public class StudentDetailsToObject {
 							StudentExcelSheetDetails s = (StudentExcelSheetDetails)it.next();
 							if (s.getAdmission_no()==adm)
 							{
-								System.out.println("Admission Number:" +s.getAdmission_no()+"\r\n"+" Name:"+s.getName()+"\r\n"+"Physics :"+s.getPhysics()+"\r\n"+"Grade: "+gradep+"\r\n"+"gradepoint: "+ gpp +"\r\n"+"Chemistry :"+s.getChemistry()+"\r\n"+"Grade: "+gradec+"\r\n"+"gradepoint: "+ gpc +"\r\n"+s.getMaths()+"\r\n"+"Grade: "+gradem+"\r\n"+"gradepoint: "+ gpm+"\r\n"+"Total: "+Total+"\r\n"+"Percentage :"+perc);
+								System.out.println("Admission Number:" +s.getAdmission_no()+"\r\n"+" Name:"+s.getName()+"\r\n"+"Physics :"+s.getPhysics()+"\r\n"+"Grade: "+gradep+"\r\n"+"gradepoint: "+ gpp +"\r\n"+"Chemistry :"+s.getChemistry()+"\r\n"+"Grade: "+gradec+"\r\n"+"gradepoint: "+ gpc +"\r\n"+"Maths :"+s.getMaths()+"\r\n"+"Grade: "+gradem+"\r\n"+"gradepoint: "+ gpm+"\r\n"+"Total: "+Total+"\r\n"+"Percentage :"+perc);
 								found=true;
 							}
 						}
@@ -261,6 +262,7 @@ public class StudentDetailsToObject {
 						System.out.println("_________________________________________________");
 						break;
 					case 3:
+								
 						if(files.isFile()) 
 						{
 							System.out.println("Enter Name to Search:");
@@ -269,15 +271,18 @@ public class StudentDetailsToObject {
 							it=studentList.listIterator();
 							while(it.hasNext())
 							{
-								StudentExcelSheetDetails t = (StudentExcelSheetDetails)it.next();
-								
-								if (t.getName()==name)
-								{
-									System.out.println("Admission Number:" +t.getAdmission_no()+"\r\n"+" Name:"+t.getName()+"\r\n"+"Physics :"+t.getPhysics()+"\r\n"+"Grade: "+gradep+"\r\n"+"gradepoint: "+ gpp +"\r\n"+"Chemistry :"+t.getChemistry()+"\r\n"+"Grade: "+gradec+"\r\n"+"gradepoint: "+ gpc +"\r\n"+t.getMaths()+"\r\n"+"Grade: "+gradem+"\r\n"+"gradepoint: "+ gpm+"\r\n"+"Total :"+Total+"\r\n"+"Percentage :"+perc);
-									found=true;
+								StudentExcelSheetDetails s = (StudentExcelSheetDetails)it.next();
+								String tmp;
+							
+									tmp = s.getName();
+									if(tmp.equals(name))
+									{
+										System.out.println("Admission Number:" +s.getAdmission_no()+"\r\n"+" Name:"+s.getName()+"\r\n"+"Physics :"+s.getPhysics()+"\r\n"+"Grade: "+gradep+"\r\n"+"gradepoint: "+ gpp +"\r\n"+"Chemistry :"+s.getChemistry()+"\r\n"+"Grade: "+gradec+"\r\n"+"gradepoint: "+ gpc +"\r\n"+"Maths :"+s.getMaths()+"\r\n"+"Grade: "+gradem+"\r\n"+"gradepoint: "+ gpm+"\r\n"+"Total: "+Total+"\r\n"+"Percentage :"+perc);
+										
 									}
-
-								}
+									found=true;
+								
+							}
 							if(!found)
 								System.out.println("Record Not Found");
 						}
