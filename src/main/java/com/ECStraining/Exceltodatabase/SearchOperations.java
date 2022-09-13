@@ -1,4 +1,4 @@
-package database.utils;
+package com.ECStraining.Exceltodatabase;
 
 import java.util.ArrayList;
 import java.sql.*;
@@ -9,11 +9,17 @@ import java.util.Scanner;
 import com.google.gson.Gson;
 
 
-public class DBOperations {
+public class SearchOperations {
 
 
 
 	public static void main(String[] args) {
+		SearchOperations searchoperation=new SearchOperations();
+		searchoperation.Searchdata();
+		
+	}
+	public void Searchdata()
+	{
 
 		System.out.println("MySQL JDBC Connection Testing ~");
 		@SuppressWarnings("rawtypes")

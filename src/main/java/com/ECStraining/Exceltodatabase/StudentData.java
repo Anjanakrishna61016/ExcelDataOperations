@@ -1,4 +1,4 @@
-package database.utils;
+package com.ECStraining.Exceltodatabase;
 
 
 public class StudentData {

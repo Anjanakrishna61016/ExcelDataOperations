@@ -1,4 +1,4 @@
-package database.utils;
+package com.ECStraining.Exceltodatabase;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,6 +13,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExceltoDatabase {
 	public static void main(String[] args) throws SQLException, IOException {
+		ExceltoDatabase object=new ExceltoDatabase();
+		object.Storedata();
+	}
+	public void Storedata() throws SQLException, IOException
+	{
 		
 		
 		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/world","root","abc123");

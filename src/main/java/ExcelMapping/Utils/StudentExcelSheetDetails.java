@@ -4,7 +4,7 @@ package ExcelMapping.Utils;
 public class StudentExcelSheetDetails 
 {
 
-    private double Admission_no;     
+    private double admissionNum;     
     private String name;
     private int physics;
     private int chemistry;
@@ -13,22 +13,22 @@ public class StudentExcelSheetDetails
     public StudentExcelSheetDetails() {
     }
     
-    public StudentExcelSheetDetails(double Admission_no, String name,  int physics,  int chemistry, int maths) {
+    public StudentExcelSheetDetails(double admissionNum, String name,  int physics,  int chemistry, int maths) {
         super();
 
-        this.Admission_no =Admission_no;
+        this.admissionNum =admissionNum;
         this.name = name;
         this.physics = physics;
         this.chemistry = chemistry;
         this.maths = maths;
     }
    
-    public double getAdmission_no() {
-        return Admission_no;
+    public double getAdmissionNum() {
+        return admissionNum;
     }
 
-    public void setAdmission_no(double Admission_no) {
-        this.Admission_no= Admission_no;
+    public void setAdmissionNum(double admissionNum) {
+        this.admissionNum= admissionNum;
     }
 
     
@@ -56,7 +56,7 @@ public class StudentExcelSheetDetails
         this.chemistry = chemistry;
     }
 
-    public double  getMaths() {
+    public int  getMaths() {
         return maths;
     }
 
